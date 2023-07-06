@@ -6,6 +6,7 @@ vim.opt.expandtab = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.autoindent = true
+vim.cmd('set clipboard^=unnamed,unnamedplus')
 
 vim.g.mapleader = ";"
 local opts = {noremap = true, silent = true}
