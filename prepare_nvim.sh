@@ -1,4 +1,5 @@
 brew install nvim
+brew install xclip
 # git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 time="`date +%Y%m%d%H%M%S`"
 mv ~/.config/nvim ~/.config/nvim_$time
