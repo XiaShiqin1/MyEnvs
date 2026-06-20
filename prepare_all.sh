@@ -16,6 +16,7 @@ chmod +x ./prepare_tmux.sh
 chmod +x ./prepare_zsh.sh
 chmod +x ./prepare_nvim.sh
 chmod +x ./prepare_antigravity.sh
+chmod +x ./prepare_iterm2.sh
 
 echo "----------------------------------------"
 echo "🍺 1. 检查并配置 Brew"
@@ -40,6 +41,10 @@ echo "📝 4. 检查并配置 Nvim"
 echo "----------------------------------------"
 echo "🤖 5. 检查并安装 Antigravity CLI"
 ./prepare_antigravity.sh
+
+echo "----------------------------------------"
+echo "🖥️  6. 配置 iTerm2 (字体和背景)"
+./prepare_iterm2.sh
 
 echo "----------------------------------------"
 echo "✅ 所有环境配置完成！"
