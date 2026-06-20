@@ -1,0 +1,17 @@
+Host *
+    # 保持连接不中断
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+    TCPKeepAlive yes
+
+    # 开启 SSH 连接复用 (加速反复连接同一主机的速度)
+    ControlMaster auto
+    ControlPath ~/.ssh/sockets/%r@%h-%p
+    ControlPersist 10m
+
+# GitHub 专用配置
+Host github.com
+    HostName github.com
+    User git
+    # 强制使用指定的私钥 (如果有多个账号时很有用)
+    # IdentityFile ~/.ssh/id_ed25519

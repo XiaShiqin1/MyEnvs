@@ -11,6 +11,7 @@ echo "🚀 开始一键配置环境..."
 
 # 确保所有脚本具有可执行权限
 chmod +x ./install_brew.sh
+chmod +x ./prepare_ssh.sh
 chmod +x ./prepare_tmux.sh
 chmod +x ./prepare_zsh.sh
 chmod +x ./prepare_nvim.sh
@@ -20,7 +21,11 @@ echo "🍺 1. 检查并配置 Brew"
 ./install_brew.sh
 
 echo "----------------------------------------"
-echo "🪟 2. 检查并配置 Tmux"
+echo "🔐 2. 检查并配置 SSH 密钥与环境"
+./prepare_ssh.sh
+
+echo "----------------------------------------"
+echo "🪟 3. 检查并配置 Tmux"
 ./prepare_tmux.sh
 
 echo "----------------------------------------"
