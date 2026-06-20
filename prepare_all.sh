@@ -15,6 +15,7 @@ chmod +x ./prepare_ssh.sh
 chmod +x ./prepare_tmux.sh
 chmod +x ./prepare_zsh.sh
 chmod +x ./prepare_nvim.sh
+chmod +x ./prepare_antigravity.sh
 
 echo "----------------------------------------"
 echo "🍺 1. 检查并配置 Brew"
@@ -35,6 +36,10 @@ echo "🐚 3. 检查并配置 Zsh (增量配置)"
 echo "----------------------------------------"
 echo "📝 4. 检查并配置 Nvim"
 ./prepare_nvim.sh
+
+echo "----------------------------------------"
+echo "🤖 5. 检查并安装 Antigravity CLI"
+./prepare_antigravity.sh
 
 echo "----------------------------------------"
 echo "✅ 所有环境配置完成！"

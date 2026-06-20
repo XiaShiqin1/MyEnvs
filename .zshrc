@@ -20,3 +20,6 @@ fi
 alias vim='nvim'
 alias vi='nvim'
 alias tmux='tmux -u'
+
+# curl temporary proxy command
+alias curlproxy='HTTPS_PROXY=http://127.0.0.1:7890 HTTP_PROXY=http://127.0.0.1:7890 https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 curl'
