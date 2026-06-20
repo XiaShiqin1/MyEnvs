@@ -24,5 +24,28 @@ vim.api.nvim_set_keymap("n", "<leader>t", ":NvimTreeToggle<Cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>s", ":SymbolsOutline<Cr>", opts)
 
 vim.cmd [[packadd packer.nvim]]
-require('nvim-tree').setup()
-require('symbols-outline').setup()
+
+require('packer').startup(function(use)
+  -- Packer can manage itself
+  use 'wbthomason/packer.nvim'
+  
+  -- Required plugins based on your keymaps
+  use {
+    'nvim-tree/nvim-tree.lua',
+    requires = {
+      'nvim-tree/nvim-web-devicons', -- optional, for file icons
+    }
+  }
+  use 'simrat39/symbols-outline.nvim'
+end)
+
+-- Safely load plugins so Neovim doesn't crash if they aren't installed yet
+local status_tree, nvim_tree = pcall(require, "nvim-tree")
+if status_tree then
+  nvim_tree.setup()
+end
+
+local status_outline, symbols_outline = pcall(require, "symbols-outline")
+if status_outline then
+  symbols_outline.setup()
+end

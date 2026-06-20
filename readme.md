@@ -19,3 +19,21 @@ cd ~/code/MyEnvs
 
 ---
 *注：本库的所有 Shell 脚本均已改造为“增量操作”或“前置存在检测”，请放心随时反复执行更新。*
+
+## ⚠️ 必须的手动介入步骤 (Manual Steps)
+
+虽然脚本完成了 99% 的自动化，但由于网络环境或权限原因，**执行完 `./prepare_all.sh` 后，你必须手动完成以下操作**：
+
+1. **重启 iTerm2**：请彻底退出 iTerm2（按 `Cmd + Q`），然后重新打开它，以确保所有 Zsh 环境变量、动态配置的字体和颜色正确加载生效。
+2. **配置 SSH 密钥 (可选)**：如果脚本为你**新生成了密钥**，你的公钥已自动复制，并且浏览器已自动打开 GitHub SSH 设置页面，请直接在网页上 `Cmd + V` 粘贴并保存。
+   * **如果使用的是旧密钥**：
+     * 若该旧密钥以前**已经**添加到 GitHub 中，你**不需要**做任何操作。
+     * 若该旧密钥**从未**在当前 GitHub 账号配置过，则需要手动复制并添加。
+   * **如何验证自己是否需要配置？**
+     在终端执行测试命令：`ssh -T git@github.com`
+     * 如果返回 `... successfully authenticated ...`，说明旧密钥有效，直接跳过此步。
+     * 如果返回 `Permission denied (publickey)`，则说明需要配置。
+   * **如何手动复制公钥并添加到 GitHub？**
+     1. 在终端执行命令将公钥复制到剪贴板：`pbcopy < ~/.ssh/id_ed25519.pub`（如果使用的是 rsa，则替换为 `id_rsa.pub`）。
+     2. 前往 GitHub SSH 设置页面：[https://github.com/settings/keys](https://github.com/settings/keys)。
+     3. 点击 "New SSH key"，随意输入一个 Title（如 Mac-MyEnvs），然后将内容 `Cmd + V` 粘贴到 Key 框内并保存。

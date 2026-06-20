@@ -28,9 +28,7 @@ append_if_not_exists() {
 }
 
 append_if_not_exists 'eval "$(/opt/homebrew/bin/brew shellenv)"'
-append_if_not_exists 'export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"'
-append_if_not_exists 'export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"'
-append_if_not_exists 'export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"'
+
 append_if_not_exists 'export HOMEBREW_NO_AUTO_UPDATE=true'
 
 # Ensure Homebrew is up to date
@@ -40,6 +38,19 @@ brew untap homebrew/cask 2>/dev/null || true
 brew untap homebrew/cask-fonts 2>/dev/null || true
 brew untap homebrew/cask-versions 2>/dev/null || true
 brew untap homebrew/command-not-found 2>/dev/null || true
+brew untap homebrew/homebrew-cask-drivers 2>/dev/null || true
+brew untap homebrew/cask-drivers 2>/dev/null || true
+
+echo "🧹 正在清理残留的国内镜像配置，强制恢复官方 GitHub 源..."
+# 1. 恢复核心库和常用 tap 的源
+git -C /opt/homebrew remote set-url origin https://github.com/Homebrew/brew 2>/dev/null || true
+git -C /opt/homebrew/Library/Taps/homebrew/homebrew-services remote set-url origin https://github.com/Homebrew/homebrew-services 2>/dev/null || true
+
+# 2. 清除当前脚本运行环境中的镜像变量
+unset HOMEBREW_API_DOMAIN
+unset HOMEBREW_BOTTLE_DOMAIN
+unset HOMEBREW_BREW_GIT_REMOTE
+unset HOMEBREW_CORE_GIT_REMOTE
 
 echo "Updating Homebrew..."
 brew update

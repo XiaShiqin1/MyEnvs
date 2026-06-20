@@ -36,67 +36,72 @@ if [ -d "./resource" ]; then
     done
 fi
 
-# 使用 Python 脚本修改现有的 iTerm2 配置，实现所有 Profile 的静默、一键更改
+# 使用 iTerm2 的 Dynamic Profiles 功能来覆盖默认配置，这样可以立即生效并且不会因为 iTerm2 退出而丢失配置
 echo "⚙️  更新 iTerm2 首选项 (默认使用 MesloLGS NF 字体与深色背景)..."
 python3 - << 'EOF'
 import subprocess
-import plistlib
+import json
 import os
-import sys
 
 def main():
-    temp_plist = "/tmp/temp_iterm2_myenvs.plist"
-    
-    # 导出当前的 iTerm2 配置到临时文件，以便安全修改
-    try:
-        subprocess.run(["defaults", "export", "com.googlecode.iterm2", temp_plist], check=True, stderr=subprocess.DEVNULL)
-    except subprocess.CalledProcessError:
-        print("⚠️ 无法读取 iTerm2 配置文件，可能是尚未初始化。")
-        sys.exit(0)
-    
-    with open(temp_plist, "rb") as f:
-        pl = plistlib.load(f)
-    
-    modified = False
-    if "New Bookmarks" in pl:
-        for bm in pl["New Bookmarks"]:
-            # 更新字体配置
-            bm["Normal Font"] = "MesloLGS-NF-Regular 14"
-            bm["Non Ascii Font"] = "MesloLGS-NF-Regular 14"
-            bm["Use Non-ASCII Font"] = False
-            
-            # 更新背景颜色为非常深的暗色
-            bm["Background Color"] = {
-                "Red Component": 0.05,
-                "Green Component": 0.05,
-                "Blue Component": 0.05,
-                "Alpha Component": 1.0,
-                "Color Space": "sRGB"
+    dynamic_guid = "myenvs-dynamic-profile-v1"
+
+    profile_data = {
+        "Profiles": [
+            {
+                "Name": "MyEnvs Default",
+                "Guid": dynamic_guid,
+                "Normal Font": "MesloLGS-NF-Regular 14",
+                "Non Ascii Font": "MesloLGS-NF-Regular 14",
+                "Use Non-ASCII Font": False,
+                "Background Color": {
+                    "Red Component": 0.17,
+                    "Green Component": 0.17,
+                    "Blue Component": 0.17,
+                    "Alpha Component": 1.0,
+                    "Color Space": "sRGB"
+                },
+                "Foreground Color": {
+                    "Red Component": 0.90,
+                    "Green Component": 0.90,
+                    "Blue Component": 0.90,
+                    "Alpha Component": 1.0,
+                    "Color Space": "sRGB"
+                },
+                "Cursor Color": {
+                    "Red Component": 0.65,
+                    "Green Component": 0.65,
+                    "Blue Component": 0.65,
+                    "Alpha Component": 1.0,
+                    "Color Space": "sRGB"
+                },
+                "Cursor Text Color": {
+                    "Red Component": 0.10,
+                    "Green Component": 0.10,
+                    "Blue Component": 0.10,
+                    "Alpha Component": 1.0,
+                    "Color Space": "sRGB"
+                }
             }
-            # 更新前景色为亮白
-            bm["Foreground Color"] = {
-                "Red Component": 0.90,
-                "Green Component": 0.90,
-                "Blue Component": 0.90,
-                "Alpha Component": 1.0,
-                "Color Space": "sRGB"
-            }
-            modified = True
-            
-    if modified:
-        with open(temp_plist, "wb") as f:
-            plistlib.dump(pl, f)
-        # 将修改后的配置重新导入，这会让 macOS 的 cfprefsd 识别到更改
-        subprocess.run(["defaults", "import", "com.googlecode.iterm2", temp_plist], check=True)
-        print("✅ 成功修改 iTerm2 配置！")
-    else:
-        print("⚠️ 未找到任何终端 Profile，已跳过。")
+        ]
+    }
+
+    dynamic_profiles_dir = os.path.expanduser("~/Library/Application Support/iTerm2/DynamicProfiles")
+    os.makedirs(dynamic_profiles_dir, exist_ok=True)
+    
+    profile_path = os.path.join(dynamic_profiles_dir, "MyEnvsProfileOverride.json")
+    with open(profile_path, "w") as f:
+        json.dump(profile_data, f, indent=2)
         
-    if os.path.exists(temp_plist):
-        os.remove(temp_plist)
+    # 将此动态 Profile 设置为默认
+    try:
+        subprocess.run(["defaults", "write", "com.googlecode.iterm2", "Default Bookmark Guid", "-string", dynamic_guid], check=True)
+        print(f"✅ 成功生成 iTerm2 动态配置并将 'MyEnvs Default' 设为默认！")
+    except Exception as e:
+        print(f"⚠️ 生成了动态配置，但设置为默认时遇到错误: {e}")
 
 if __name__ == "__main__":
     main()
 EOF
 
-echo "💡 提示：如果发现 iTerm2 未立刻生效，请完全退出 iTerm2 (Cmd+Q) 后重新打开即可应用新字体和深色背景。"
+echo "💡 提示：动态配置应该已经立刻生效，如果当前窗口没有变化，可以尝试新开一个 Tab (Cmd+T)。"

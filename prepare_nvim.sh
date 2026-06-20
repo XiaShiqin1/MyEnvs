@@ -43,4 +43,12 @@ fi
 
 echo "Copying nvim configuration..."
 cp -r ./nvim/config ~/.config/nvim
-echo "Done. When you first open nvim, run :PackerSync to install your plugins."
+
+echo "Automatically installing Neovim plugins (this may take a while depending on network)..."
+# 使用 headless 模式在后台自动执行 PackerSync，并在完成时退出
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
+echo ""
+echo "=========================================================="
+echo "✅ Neovim 基础配置与插件安装已自动完成！"
+echo "=========================================================="
