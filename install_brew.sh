@@ -33,4 +33,16 @@ append_if_not_exists 'export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsin
 append_if_not_exists 'export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"'
 append_if_not_exists 'export HOMEBREW_NO_AUTO_UPDATE=true'
 
-echo "Brew env configuration checked/updated."
+# Ensure Homebrew is up to date
+echo "Updating Homebrew..."
+brew update
+
+# Ensure GitHub CLI is installed
+if ! command -v gh &> /dev/null; then
+    echo "Installing GitHub CLI (gh)..."
+    brew install gh
+else
+    echo "✅ GitHub CLI (gh) is already installed."
+fi
+
+echo "Brew and essential CLI tools configuration completed."
