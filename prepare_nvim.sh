@@ -32,7 +32,15 @@ fi
 mkdir -p ~/.config
 mkdir -p ~/.local/share
 
+# Install Packer plugin manager
+PACKER_DIR=~/.local/share/nvim/site/pack/packer/start/packer.nvim
+if [ ! -d "$PACKER_DIR" ]; then
+    echo "Installing Packer plugin manager..."
+    git clone --depth 1 https://github.com/wbthomason/packer.nvim "$PACKER_DIR"
+else
+    echo "Packer is already installed."
+fi
+
 echo "Copying nvim configuration..."
 cp -r ./nvim/config ~/.config/nvim
-cp -r ./nvim/local/nvim ~/.local/share/nvim
-echo "Done."
+echo "Done. When you first open nvim, run :PackerSync to install your plugins."
