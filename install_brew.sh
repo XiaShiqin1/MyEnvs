@@ -45,4 +45,12 @@ else
     echo "✅ GitHub CLI (gh) is already installed."
 fi
 
+# Ensure iTerm2 is installed
+if [ ! -d "/Applications/iTerm.app" ]; then
+    echo "Installing iTerm2..."
+    brew install --cask iterm2
+else
+    echo "✅ iTerm2 is already installed."
+fi
+
 echo "Brew and essential CLI tools configuration completed."
