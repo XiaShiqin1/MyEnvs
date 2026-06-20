@@ -21,5 +21,6 @@ alias vim='nvim'
 alias vi='nvim'
 alias tmux='tmux -u'
 
-# curl temporary proxy command
-alias curlproxy='HTTPS_PROXY=http://127.0.0.1:7890 HTTP_PROXY=http://127.0.0.1:7890 https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 curl'
+# 全局终端代理开关
+alias proxy='export all_proxy=socks5://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 https_proxy=http://127.0.0.1:7890; echo "终端代理已开启"'
+alias unproxy='unset all_proxy http_proxy https_proxy; echo "终端代理已关闭"'

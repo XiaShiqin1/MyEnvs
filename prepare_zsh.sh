@@ -100,7 +100,7 @@ if [ -f ~/.zshrc ]; then
     
     # Check if the source line is already in ~/.zshrc
     CURRENT_DIR=$(pwd)
-    if ! grep -q "source $CURRENT_DIR/.zshrc" ~/.zshrc; then
+    if ! grep -q "source \"$CURRENT_DIR/.zshrc\"" ~/.zshrc; then
         echo "Appending source command to ~/.zshrc to load local aliases/configs..."
         echo "" >> ~/.zshrc
         echo "# Load custom envs incrementally" >> ~/.zshrc
