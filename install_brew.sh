@@ -34,6 +34,13 @@ append_if_not_exists 'export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsin
 append_if_not_exists 'export HOMEBREW_NO_AUTO_UPDATE=true'
 
 # Ensure Homebrew is up to date
+echo "Optimizing Homebrew for API mode (untapping massive legacy git repos)..."
+brew untap homebrew/core 2>/dev/null || true
+brew untap homebrew/cask 2>/dev/null || true
+brew untap homebrew/cask-fonts 2>/dev/null || true
+brew untap homebrew/cask-versions 2>/dev/null || true
+brew untap homebrew/command-not-found 2>/dev/null || true
+
 echo "Updating Homebrew..."
 brew update
 
