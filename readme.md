@@ -37,3 +37,9 @@ cd ~/code/MyEnvs
      1. 在终端执行命令将公钥复制到剪贴板：`pbcopy < ~/.ssh/id_ed25519.pub`（如果使用的是 rsa，则替换为 `id_rsa.pub`）。
      2. 前往 GitHub SSH 设置页面：[https://github.com/settings/keys](https://github.com/settings/keys)。
      3. 点击 "New SSH key"，随意输入一个 Title（如 Mac-MyEnvs），然后将内容 `Cmd + V` 粘贴到 Key 框内并保存。
+
+---
+
+## 📚 推荐阅读
+
+*   [🪟 Tmux 极简入门指南 (基于 MyEnvs 优化版)](tmux_guide.md)：对于刚刚配置好环境的新手，强烈建议花 1 分钟阅读此文档。了解如何使用鼠标、Vim 快捷键以及享受丝滑的跨屏幕复制粘贴体验！

@@ -93,15 +93,21 @@ def main():
     with open(profile_path, "w") as f:
         json.dump(profile_data, f, indent=2)
         
-    # 将此动态 Profile 设置为默认
+    # 尝试将此动态 Profile 设置为默认（如果是在 iTerm2 内部执行，退出时可能会被覆盖重写）
     try:
         subprocess.run(["defaults", "write", "com.googlecode.iterm2", "Default Bookmark Guid", "-string", dynamic_guid], check=True)
-        print(f"✅ 成功生成 iTerm2 动态配置并将 'MyEnvs Default' 设为默认！")
+        print("✅ 成功生成 iTerm2 动态配置 'MyEnvs Default'！")
     except Exception as e:
-        print(f"⚠️ 生成了动态配置，但设置为默认时遇到错误: {e}")
+        print(f"⚠️ 生成了动态配置，但在设置时遇到错误: {e}")
 
 if __name__ == "__main__":
     main()
 EOF
 
-echo "💡 提示：动态配置应该已经立刻生效，如果当前窗口没有变化，可以尝试新开一个 Tab (Cmd+T)。"
+echo ""
+echo "💡 提示：如果重启 iTerm2 后发现字体或颜色没有生效，那是因为 iTerm2 在退出时覆盖了脚本的设置。"
+echo "   请手动操作一步："
+echo "   1. 按 \`Cmd + ,\` 打开 iTerm2 设置"
+echo "   2. 切换到 \`Profiles\` 标签页"
+echo "   3. 在左侧列表中选中 \`MyEnvs Default\`"
+echo "   4. 点击列表下方的 \`Other Actions...\`，选择 \`Set as Default\` 即可！"
