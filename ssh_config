@@ -11,7 +11,9 @@ Host *
 
 # GitHub 专用配置
 Host github.com
-    HostName github.com
+    # 当前网络环境下 github.com:22 可能被阻断，改走 GitHub 官方 SSH over HTTPS 入口
+    HostName ssh.github.com
+    Port 443
     User git
     # 强制使用指定的私钥 (如果有多个账号时很有用)
     # IdentityFile ~/.ssh/id_ed25519

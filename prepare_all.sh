@@ -20,7 +20,6 @@ chmod +x ./prepare_ssh.sh
 chmod +x ./prepare_tmux.sh
 chmod +x ./prepare_zsh.sh
 chmod +x ./prepare_nvim.sh
-chmod +x ./prepare_antigravity.sh
 chmod +x ./prepare_iterm2.sh
 
 echo "----------------------------------------"
@@ -44,15 +43,11 @@ echo "📝 5. 检查并配置 Nvim"
 ./prepare_nvim.sh
 
 echo "----------------------------------------"
-echo "🤖 6. 检查并安装 Antigravity CLI"
-./prepare_antigravity.sh
-
-echo "----------------------------------------"
-echo "🖥️  7. 配置 iTerm2 (字体和背景)"
+echo "🖥️  6. 配置 iTerm2 (字体和背景)"
 ./prepare_iterm2.sh
 
 echo "----------------------------------------"
-echo "🧹 8. 清理 Zsh 补全缓存 (修复 compinit 报错)"
+echo "🧹 7. 清理 Zsh 补全缓存 (修复 compinit 报错)"
 # 删除可能损坏的 brew services 补全软链接
 rm -f /opt/homebrew/share/zsh/site-functions/_brew_services 2>/dev/null || true
 # 清理 zsh 补全缓存，强制下次启动终端时重建
