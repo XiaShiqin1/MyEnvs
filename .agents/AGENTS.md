@@ -3,3 +3,4 @@
 - **代码提交规范（严格要求）**：**绝对不要**自动创建任何 Git 分支，**不要**自动执行 `git commit`，也**绝不要**自动推送任何代码到远程仓库。请将所有修改保留在本地工作区（未暂存或暂存状态均可），由用户自行决定何时提交和推送。
 - **全自动 PR 规范（需明确指令）**：所有的 Git 提交、分支创建、推送远端和 PR 创建等操作，都必须在获得用户的**明确授权和指令**后才能执行。在用户连续提出需求并完成一阶段开发，并明确下达指令后，才可使用 Github CLI 命令（`gh pr create --fill` 等）自动发起 Pull Request。
 - **PR 提交与 Squash 规范**：在获得授权发起 PR 并执行提交时，**必须将详细的变更描述（Changelog）同时写进 `git commit` 的多行消息（Body）中，以及 PR 的 Body 中**。这样可以确保无论是一个 Commit 还是多个 Commit，当在 GitHub 网页端进行 `Squash and merge` 时，这段详细的变更说明都能被系统自动抓取并永久保留在主分支的 Commit 记录里。
+- **PR 语言规范**：PR Title 必须使用英文，且不要使用 `feat:`、`fix:`、`chore:`、`docs:` 等 Conventional Commits 类型前缀；PR Description 必须使用中文，并包含清晰的变更说明和验证结果。
